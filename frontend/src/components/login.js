@@ -22,7 +22,7 @@ function Login() {
                 <p>Password</p>
                 <input type="text" onChange={event => setPassword(event.target.value)} />
               </label>
-              <input type="submit" value="Login" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800" />
+              <input type="submit" value="Login" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold" />
             </form>
         </div>
     </div>
