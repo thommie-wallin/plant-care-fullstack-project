@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { getUser, updateUser } from "../../services/users";
+import { useParams } from "react-router";
+import { useHistory } from "react-router-dom";
 
 function UpdateUser() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [admin, setAdmin] = useState(null);
+  const { id } = useParams();
+  let history = useHistory();
 
   useEffect(() => {
     let mounted = true;
-    getUser(6)
+    getUser(id)
       .then(users => {
       if(mounted) {
         setUsername(users.username);
@@ -25,7 +29,8 @@ function UpdateUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUser(6, [username, password, admin])
+    updateUser(id, [username, password, admin])
+    history.push("/admin");
   };
 
   return (
@@ -41,32 +46,6 @@ function UpdateUser() {
                 <p>Password</p>
                 <input value={password} type="text" onChange={event => setPassword(event.target.value)} />
               </label>
-              
-              {/* Radio buttons */}
-              {/* <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="true"     
-                    checked={admin === true}
-                    // onChange={event => setAdmin(event.target.value)}
-                    onChange={handleChange}
-                  />
-                  Admin
-                </label>
-              </div>
-              <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="false"
-                    checked={admin === false}
-                    // onChange={event => setAdmin(event.target.value)}
-                    onChange={handleChange}
-                  />
-                  User
-                </label>
-              </div> */}
 
               <div className="flex justify-center">
                 <label>
@@ -78,7 +57,6 @@ function UpdateUser() {
                   <span className="ml-1">Admin</span>
                 </label>
               </div>
-              
               
               <input type="submit" value="Update" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold" />
             </form>

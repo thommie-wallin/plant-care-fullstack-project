@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { createPlant } from "../../services/plants";
+import { useHistory } from "react-router-dom";
 
 function CreatePlant() {
   const [name, setName] = useState('');
   const [instruction, setInstruction] = useState('');
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     createPlant([name, instruction])
+    history.push("/profile");
   };
 
   return (

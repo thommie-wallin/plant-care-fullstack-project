@@ -12,11 +12,30 @@ import CreateUser from './components/admin/usercreate';
 import UpdateUser from './components/admin/userupdate';
 
 function App() {
-  return (  
-    <div className="h-screen p-6 bg-gray-200">
+  return (
+    <Router>
+      <div className="h-screen bg-gray-200">
         <Menu />
-        <Admin />
-    </div>
+        <div className="p-6">
+          <Switch>
+            <Route path="/" component={Home} exact />            
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+
+            {/* User */}
+            <Route path="/profile" component={Profile} />
+            <Route path="/createplant" component={CreatePlant} exact />
+            <Route path="/updateplant/:id" component={UpdatePlant} exact />
+
+            {/* Admin */}
+            <Route path="/admin" component={Admin} />
+            <Route path="/createuser" component={CreateUser} exact />
+            <Route path="/updateuser/:id" component={UpdateUser} exact />
+          </Switch>
+        </div>
+      </div>
+    </Router>
+    
   );
 }
 

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { createUser } from "../../services/users";
+import { useHistory } from "react-router-dom";
 
 function CreateUser() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [admin, setAdmin] = useState(false);
+  let history = useHistory();
 
   const handleChange = () => {
     setAdmin(admin ? false : true);
@@ -13,7 +15,7 @@ function CreateUser() {
   const handleSubmit = (e) => {
     e.preventDefault();
     createUser([username, password, admin])
-    console.log(admin)
+    history.push("/admin");
   };
 
   return (
@@ -29,28 +31,6 @@ function CreateUser() {
                 <p>Password</p>
                 <input type="text" onChange={event => setPassword(event.target.value)} />
               </label>
-              
-              {/* Radio buttons */}
-              {/* <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="true"                  
-                    onChange={event => setAdmin(event.target.value)}
-                  />
-                  Admin
-                </label>
-              </div>
-              <div className="radio">
-                <label>
-                  <input
-                    type="radio"
-                    value="false"                  
-                    onChange={event => setAdmin(event.target.value)}
-                  />
-                  User
-                </label>
-              </div> */}
 
               {/* Checkbox */}
               <div className="flex justify-center">
@@ -63,7 +43,6 @@ function CreateUser() {
                   <span className="ml-1">Admin</span>
                 </label>
               </div>
-              
               
               <input type="submit" value="Create" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold" />
             </form>

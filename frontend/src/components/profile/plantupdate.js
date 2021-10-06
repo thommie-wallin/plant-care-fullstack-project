@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router";
 import { getPlant, updatePlant } from "../../services/plants";
+import { useHistory } from "react-router-dom";
 
 function UpdatePlant() {
   const [name, setName] = useState('');
   const [instruction, setInstruction] = useState('');
+  const { id } = useParams();
+  let history = useHistory();
 
   useEffect(() => {
     let mounted = true;
-    getPlant(1)
+    getPlant(id)
       .then(plant => {
       if(mounted) {
-        // setPlants(plants);
         setName(plant.name)
         setInstruction(plant.instruction)
-        console.log(plant)
       }
     })
     return () => mounted = false;
@@ -21,12 +23,13 @@ function UpdatePlant() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updatePlant(1, [name, instruction])
+    updatePlant(id, [name, instruction])
+    history.push("/profile");
   };
 
   return (
     <div className="h-full flex flex-col justify-evenly items-center">
-        <h1>Add new plant</h1>
+        <h1>Update plant</h1>
         <div>
             <form className="flex flex-col" onSubmit={handleSubmit}>
               <label className="m-2">

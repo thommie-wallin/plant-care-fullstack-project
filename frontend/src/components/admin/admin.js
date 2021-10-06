@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { getUsers, delUser } from "../../services/users"
+import { getUsers, delUser } from "../../services/users";
+import { Link } from "react-router-dom";
 
 function Admin() {
   const [users, setUsers] = useState([]);
@@ -27,7 +28,9 @@ function Admin() {
       <div className="flex justify-between items-center">
         <h1>Admin</h1>
         <div>
-          <button className="w-full sm:h-12 px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded focus:shadow-outline hover:bg-indigo-800 mb-4 font-bold  mr-2 sm:mr-4">Create</button>
+          <Link to="/createuser">
+              <button className="w-full sm:h-12 px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded focus:shadow-outline hover:bg-indigo-800 mb-4 font-bold  mr-2 sm:mr-4">Create</button>
+            </Link>
         </div>
       </div>
 
@@ -103,9 +106,9 @@ function Admin() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a href="#" className="text-indigo-600 hover:text-indigo-900">
+                      <Link to={`/updateuser/${user.id}`} className="text-indigo-600 hover:text-indigo-900">
                         Edit
-                      </a>
+                      </Link>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <a onClick={() => handleDelete(user.id)} href="#" className="text-indigo-600 hover:text-indigo-900">

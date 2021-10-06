@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
+    history.push("/profile");
   };
 
   return (

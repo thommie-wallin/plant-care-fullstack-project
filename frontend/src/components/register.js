@@ -1,12 +1,15 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
+    history.push("/login");
   };
 
   return (
@@ -21,8 +24,8 @@ function Register() {
               <label className="m-2">
                 <p>Password</p>
                 <input type="text" onChange={event => setPassword(event.target.value)} />
-              </label>
-              <input type="submit" value="Register" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold" />
+              </label>            
+              <input type="submit" value="Register" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold" />            
             </form>
         </div>
     </div>
