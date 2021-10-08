@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { getPlants, delPlant } from "../../services/plants";
 import { Link } from "react-router-dom";
+import { getPlants, delPlant } from "../../services/plants";
+import SearchPlants from "./plantsearch";
+
 
 function Profile() {
   const [plants, setPlants] = useState([]);
-  const [deletePlant, setDeletePlant] = useState(null);  
+  const [deletePlant, setDeletePlant] = useState(null);
+  const [plantCards, setPlantCards] = useState([]);
 
   useEffect(() => {
     let mounted = true;
@@ -12,6 +15,7 @@ function Profile() {
       .then(plants => {
       if(mounted) {
         setPlants(plants);
+        setPlantCards(plants);
       }
     })
     return () => mounted = false;
@@ -22,18 +26,26 @@ function Profile() {
     setDeletePlant(id);
   }
 
+  const searchResult = (result) => {
+    setPlantCards(result)
+  }
+
   return (
     <div>
       
+      {/* Header */}
       <div className="flex justify-between">
-        <h1>Plants</h1>
-        <div className="flex">
+        <div className="flex items-center">
+          <h1 className="mx-1">Plants</h1>
           <Link to="/createplant">
-            <button className="w-full sm:h-12 px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded focus:shadow-outline hover:bg-indigo-800 mb-4 font-bold  mr-2 sm:mr-4">Add</button>
+            <button className="w-full px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded focus:shadow-outline hover:bg-indigo-800 font-bold">New</button>
           </Link>
           
-            {/* <button className="w-full px-6 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded focus:shadow-outline hover:bg-indigo-800 mb-4 font-bold">Search</button> */}
           
+        </div>
+        
+        <div className="flex items-center">
+          <SearchPlants plantsList={plants} searchResult={searchResult} />
         </div>
       </div>
       
@@ -41,7 +53,7 @@ function Profile() {
       <div class="mt-4 mx-auto">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {/* Card */}
-          {plants.map(plant => 
+          {plantCards.map(plant => 
             <div key={plant.id} class="m-2 cursor-pointer border border-gray-400 rounded-lg hover:shadow-md hover:border-opacity-0 transform hover:-translate-y-1 transition-all duration-200">
               <div class="m-3">
                 <div className="flex justify-between items-center">

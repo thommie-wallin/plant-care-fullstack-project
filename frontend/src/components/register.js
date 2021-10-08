@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { createUser } from "../services/users";
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [admin, setAdmin] = useState(false);
   let history = useHistory();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(username, password);
+    createUser([username, password, admin])
     history.push("/login");
   };
 

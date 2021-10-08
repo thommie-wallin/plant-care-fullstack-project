@@ -14,7 +14,7 @@ import UpdateUser from './components/admin/userupdate';
 function App() {
   return (
     <Router>
-      <div className="h-screen bg-gray-200">
+      <div className="min-h-screen bg-gray-200">
         <Menu />
         <div className="p-6">
           <Switch>
