@@ -1,28 +1,41 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
+import Home from './components/home';
+import Login from './components/login';
+import Register from './components/register';
+import Menu from './components/menu';
+import Profile from './components/profile/profile';
+import CreatePlant from './components/profile/plantcreate';
+import UpdatePlant from './components/profile/plantupdate';
+import Admin from './components/admin/admin'; 
+import CreateUser from './components/admin/usercreate';
+import UpdateUser from './components/admin/userupdate';
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
-    <div className="App" class="p-6 items-center justify-center">
-        <h1 class="text-blue-400 font-extrabold">Hello World!</h1>
-        <p class="tracking-widest">This is my first React App.</p>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gray-200">
+        <Menu />
+        <div className="p-6">
+          <Switch>
+            <Route path="/" component={Home} exact />            
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+
+            {/* User */}
+            <Route path="/profile" component={Profile} />
+            <Route path="/createplant" component={CreatePlant} exact />
+            <Route path="/updateplant/:id" component={UpdatePlant} exact />
+
+            {/* Admin */}
+            <Route path="/admin" component={Admin} />
+            <Route path="/createuser" component={CreateUser} exact />
+            <Route path="/updateuser/:id" component={UpdateUser} exact />
+          </Switch>
+        </div>
+      </div>
+    </Router>
+    
   );
 }
 
