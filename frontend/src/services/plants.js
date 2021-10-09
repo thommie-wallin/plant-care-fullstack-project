@@ -8,12 +8,6 @@ export function getPlant(plantId) {
     .then(data => data.json());
 }
 
-export function delPlant(plantId) {
-  fetch(`http://localhost:3333/plants/` + plantId, {
-    method: 'DELETE'
-  })
-}
-
 export function createPlant([name, instruction]) {
   return fetch('http://localhost:3333/plants', {
     method: 'POST',
@@ -34,4 +28,15 @@ export function updatePlant(plantId, [name, instruction]) {
     body: JSON.stringify({ name, instruction })
   })
     .then(data => data.json());
+}
+
+export function delPlant(plantId) {
+  fetch(`http://localhost:3333/plants/` + plantId, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ plantId })
+  })
+  .then(data => data.json());
 }

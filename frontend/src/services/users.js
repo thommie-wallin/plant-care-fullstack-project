@@ -32,6 +32,11 @@ export function updateUser(userId, [username, password, admin]) {
 
 export function delUser(usertId) {
   fetch(`http://localhost:3333/users/` + usertId, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ usertId })
   })
+  .then(data => data.json());
 }
