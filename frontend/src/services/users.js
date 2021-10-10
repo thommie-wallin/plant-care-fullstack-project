@@ -1,15 +1,15 @@
 export function getUsers() {
-  return fetch('http://localhost:3333/users')
+  return fetch('http://localhost:8080/api/users')
     .then(data => data.json());
 }
 
 export function getUser(userId) {
-  return fetch(`http://localhost:3333/users/` + userId)
+  return fetch(`http://localhost:8080/api/users/` + userId)
     .then(data => data.json());
 }
 
 export function createUser([username, password, admin]) {
-  return fetch('http://localhost:3333/users', {
+  return fetch('http://localhost:8080/api/users/', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ export function createUser([username, password, admin]) {
 }
 
 export function updateUser(userId, [username, password, admin]) {
-  return fetch(`http://localhost:3333/users/` + userId, {
+  return fetch(`http://localhost:8080/api/users/` + userId, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -31,7 +31,7 @@ export function updateUser(userId, [username, password, admin]) {
 }
 
 export function delUser(usertId) {
-  fetch(`http://localhost:3333/users/` + usertId, {
+  fetch(`http://localhost:8080/api/users/` + usertId, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
