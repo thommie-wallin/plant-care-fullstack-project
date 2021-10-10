@@ -81,12 +81,12 @@ function Admin() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex justify-center">
                         <span className="px-2 leading-5 text-sm text-gray-500">
-                          {user.id}
+                          {user._id}
                         </span>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
+                      <div className="flex items-center justify-start">
                         <div className="ml-4">
                           <div className="text-sm font-medium text-gray-900">{user.username}</div>          
                         </div>
@@ -106,12 +106,12 @@ function Admin() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <Link to={`/updateuser/${user.id}`} className="text-indigo-600 hover:text-indigo-900">
+                      <Link to={`/updateuser/${user._id}`} className="text-indigo-600 hover:text-indigo-900">
                         Edit
                       </Link>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                      <a onClick={() => handleDelete(user.id)} href="#" className="text-indigo-600 hover:text-indigo-900">
+                      <a onClick={() => handleDelete(user._id)} href="#" className="text-indigo-600 hover:text-indigo-900">
                         Del
                       </a>
                     </td>
