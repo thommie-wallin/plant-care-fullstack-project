@@ -112,3 +112,41 @@ exports.deletePlant = (req, res) => {
       });
     });
 };
+
+// Search plants by name
+exports.searchPlants = async (req, res) => {
+  if (!req.body.query) {
+    res.status(400).send({ message: "Search bar cannot be empty!" });
+    return;
+  }
+
+  const query = req.body.query;
+
+  function hasWhiteSpace(query) {
+    const whiteSpace = new RegExp(/\s/);
+    return whiteSpace.test(query);
+  }
+
+  if (hasWhiteSpace(query)) {
+    const queryStrings = query.split(" ")
+    allQueries =[]
+    queryStrings.forEach(element => {
+      allQueries.push({name: {$regex : String(element), $options : "i"}})
+    });
+    const allPlants = await Plant.find({user_id: req.userId, $or : allQueries})
+    if(!allPlants || allPlants.length === 0) {
+      res.status(400).send({error : "No plants was found"})
+    } else {
+      res.status(200).send(allPlants)
+    }
+  } else {
+    await Plant.find({ user_id: req.userId, name: {$regex : String(req.body.query), $options : "i"} }, 'name user_id', function (err, data) {
+      if (err){console.log(err)}
+      if (!data || data.length === 0) {
+        res.status(400).send({ message: "No plants was found" })
+      } else {
+        res.status(200).send(data);
+      }
+    });
+  }
+};
