@@ -1,3 +1,3 @@
 module.exports = {
-  secret: "u11-secret-key",
+  secret: process.env.SECRET,
 };
