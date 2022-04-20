@@ -38,6 +38,7 @@ module.exports = function (app) {
     controller.getUserPlants
   );
   app.get("/api/getOnePlant", [authJwt.verifyToken], controller.getOnePlant);
+  app.post("/api/searchPlants", [authJwt.verifyToken], controller.searchPlants);
   app.put("/api/updatePlant", [authJwt.verifyToken], controller.updatePlant);
   app.delete("/api/deletePlant", [authJwt.verifyToken], controller.deletePlant);
 };

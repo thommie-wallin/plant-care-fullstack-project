@@ -19,6 +19,7 @@ const Plant = mongoose.model(
   "Plant",
   new mongoose.Schema(
     {
+      // name: { type: [String], index: true },
       name: String,
       instruction: String,
       user_id: String,
@@ -26,4 +27,5 @@ const Plant = mongoose.model(
     { timestamps: true }
   )
 );
+// Plant.createIndexes({ name: "text" })
 module.exports = Plant;
