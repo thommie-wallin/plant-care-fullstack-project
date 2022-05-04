@@ -1,68 +1,241 @@
-import React, { useState, useEffect } from "react";
-import { getUser, updateUser } from "../../services/users";
+import React, { useState, useEffect, useRef } from "react";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
+import { isEmail } from "validator";
 import { useParams } from "react-router";
 import { useHistory } from "react-router-dom";
+import UserService from "../../services/user.service";
+
+const required = (value) => {
+  if (!value) {
+    return (
+      <div
+        className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+      >
+        <span className="block sm:inline">This field is required!</span>
+      </div>
+    );
+  }
+};
+
+const validEmail = (value) => {
+  if (!isEmail(value)) {
+    return (
+      <div
+        className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+      >
+        <span className="block sm:inline">This is not a valid email.</span>
+      </div>
+    );
+  }
+};
+
+const vusername = (value) => {
+  if (value.length < 3 || value.length > 20) {
+    return (
+      <div
+        className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+      >
+        <span className="block sm:inline">
+          The username must be between 3 and 20 characters.
+        </span>
+      </div>
+    );
+  }
+};
+
+const vpassword = (value) => {
+  if (value.length < 6 || value.length > 65) {
+    return (
+      <div
+        className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+      >
+        <span className="block sm:inline">
+          The password must be between 6 and 65 characters.
+        </span>
+      </div>
+    );
+  }
+};
 
 function UpdateUser() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const form = useRef();
+  const checkBtn = useRef();
+  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [admin, setAdmin] = useState(null);
+  const [user, setUser] = useState(null);
+  const [successful, setSuccessful] = useState(false);
+  const [message, setMessage] = useState("");
   const { id } = useParams();
   let history = useHistory();
 
   useEffect(() => {
     let mounted = true;
-    getUser(id)
-      .then(users => {
-      if(mounted) {
-        setUsername(users.username);
-        setPassword(users.password);
-        setAdmin(users.admin);
+    UserService.getUser(id).then((user) => {
+      if (mounted) {
+        setUserId(user.id);
+        setUsername(user.username);
+        setEmail(user.email);
+        setPassword(user.password);
+        user.roles.forEach((value) => {
+          if (value === "user") {
+            setUser(true);
+          } else {
+            setAdmin(true);
+          }
+        });
       }
-    })
-    return () => mounted = false;
-  }, []);
+    });
+    return () => (mounted = false);
+  }, [id]);
 
-  const handleChange = () => {
-    setAdmin(admin ? false : true);
+  const onChangeUsername = (e) => setUsername(e.target.value);
+  const onChangeEmail = (e) => setEmail(e.target.value);
+  const onChangePassword = (e) => setPassword(e.target.value);
+  const handleChangeAdmin = () => setAdmin(admin ? false : true);
+  const handleChangeUser = () => setUser(user ? false : true);
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setMessage("");
+    setSuccessful(false);
+    form.current.validateAll();
+    if (checkBtn.current.context._errors.length === 0) {
+      let roles = [];
+      admin && roles.push("admin");
+      user && roles.push("user");
+      !user && !admin && roles.push("user");
+
+      UserService.updateUser(userId, username, email, password, roles)
+        .then((response) => {
+          setMessage(response.data.message);
+          setSuccessful(true);
+        })
+        .catch((error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          setMessage(resMessage);
+          setSuccessful(false);
+        });
+    }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateUser(id, [username, password, admin])
+  const handleClick = () => {
     history.push("/admin");
   };
 
   return (
-    <div className="h-full flex flex-col justify-evenly items-center">
+    <div className="flex justify-center">
+      <div className="h-full bg-gray-100 md:w-80 flex flex-col justify-evenly items-center border border-black rounded p-5">
         <h1>Update user</h1>
         <div>
-            <form className="flex flex-col" onSubmit={handleSubmit}>
-              <label className="m-2">
-                <p>Username</p>
-                <input value={username} type="text" onChange={event => setUsername(event.target.value)} />
-              </label>
-              <label className="m-2">
-                <p>Password</p>
-                <input value={password} type="text" onChange={event => setPassword(event.target.value)} />
-              </label>
-
-              <div className="flex justify-center">
-                <label>
-                  <input 
-                    type="checkbox"
-                    checked={admin}
-                    onChange={handleChange} 
-                  />
-                  <span className="ml-1">Admin</span>
-                </label>
+          <Form className="flex flex-col" onSubmit={handleUpdate} ref={form}>
+            {!successful && (
+              <div>
+                <div className="m-2">
+                  <label htmlFor="username">
+                    <p>Username</p>
+                    <Input
+                      className="border rounded-md focus:outline-none"
+                      type="text"
+                      name="username"
+                      value={username}
+                      onChange={onChangeUsername}
+                      validations={[required, vusername]}
+                    />
+                  </label>
+                </div>
+                <div className="m-2">
+                  <label htmlFor="email">
+                    <p>Email</p>
+                    <Input
+                      className="border rounded-md focus:outline-none"
+                      type="text"
+                      name="email"
+                      value={email}
+                      onChange={onChangeEmail}
+                      validations={[required, validEmail]}
+                    />
+                  </label>
+                </div>
+                <div className="m-2">
+                  <label htmlFor="password">
+                    <p>Password</p>
+                    <Input
+                      className="border rounded-md focus:outline-none"
+                      type="text"
+                      name="password"
+                      value={password}
+                      onChange={onChangePassword}
+                      validations={[required, vpassword]}
+                    />
+                  </label>
+                </div>
+                <div className="flex justify-center">
+                  <label htmlFor="admin">
+                    <p>Admin</p>
+                    <Input
+                      type="checkbox"
+                      checked={admin}
+                      onChange={handleChangeAdmin}
+                    />
+                  </label>
+                  <label htmlFor="user">
+                    <p>User</p>
+                    <Input
+                      type="checkbox"
+                      checked={user}
+                      onChange={handleChangeUser}
+                    />
+                  </label>
+                </div>
+                <div className="m-2 flex justify-center">
+                  <button className="p-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold">
+                    Update
+                  </button>
+                </div>
               </div>
-              
-              <input type="submit" value="Update" className="h-10 px-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold" />
-            </form>
+            )}
+            {message && (
+              <div>
+                <div
+                  className={
+                    successful
+                      ? "bg-green-100 border border-green-200 text-green-700 px-4 py-3 rounded"
+                      : "bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded"
+                  }
+                  role="alert"
+                >
+                  <span className="block sm:inline">{message}</span>
+                </div>
+                <div className="m-2 flex justify-center">
+                  <button
+                    className="p-5 m-4 text-indigo-100 transition-colors duration-150 bg-indigo-700 rounded-lg focus:shadow-outline hover:bg-indigo-800 font-bold"
+                    onClick={handleClick}
+                  >
+                    Ok
+                  </button>
+                </div>
+              </div>
+            )}
+            <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          </Form>
         </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default UpdateUser
+export default UpdateUser;

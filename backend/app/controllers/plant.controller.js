@@ -1,6 +1,5 @@
-// const db = require("../models");
-// const Plant = db.plants;
-const Plant = require("../models/plant.model");
+const db = require("../models");
+const Plant = db.plants;
 
 // Create and Save a new Plant
 exports.createPlant = (req, res) => {
@@ -49,8 +48,8 @@ exports.getUserPlants = (req, res) => {
 
 // Find a single Plant with an id
 exports.getOnePlant = (req, res) => {
-  // const id = req.params.id;
-  const id = req.body.id;
+  const id = req.query.id;
+  // const id = req.body.id;
 
   Plant.findById(id)
     .then((data) => {
@@ -91,8 +90,7 @@ exports.updatePlant = (req, res) => {
 
 // Delete a Plant with the specified id in the request
 exports.deletePlant = (req, res) => {
-  // const id = req.params.id;
-  const id = req.body.id;
+  const id = req.query.id;
 
   Plant.findByIdAndRemove(id)
     .then((data) => {
@@ -128,25 +126,73 @@ exports.searchPlants = async (req, res) => {
   }
 
   if (hasWhiteSpace(query)) {
-    const queryStrings = query.split(" ")
-    allQueries =[]
-    queryStrings.forEach(element => {
-      allQueries.push({name: {$regex : String(element), $options : "i"}})
+    const queryStrings = query.split(" ");
+    allQueries = [];
+    queryStrings.forEach((element) => {
+      allQueries.push({ name: { $regex: String(element), $options: "i" } });
     });
-    const allPlants = await Plant.find({user_id: req.userId, $or : allQueries})
-    if(!allPlants || allPlants.length === 0) {
-      res.status(400).send({error : "No plants was found"})
+    const allPlants = await Plant.find({
+      user_id: req.userId,
+      $or: allQueries,
+    });
+    if (!allPlants || allPlants.length === 0) {
+      res.status(400).send({ error: "No plants was found" });
     } else {
-      res.status(200).send(allPlants)
+      res.status(200).send(allPlants);
     }
   } else {
-    await Plant.find({ user_id: req.userId, name: {$regex : String(req.body.query), $options : "i"} }, 'name user_id', function (err, data) {
-      if (err){console.log(err)}
-      if (!data || data.length === 0) {
-        res.status(400).send({ message: "No plants was found" })
-      } else {
-        res.status(200).send(data);
+    await Plant.find(
+      {
+        user_id: req.userId,
+        name: { $regex: String(req.body.query), $options: "i" },
+      },
+      "name user_id",
+      function (err, data) {
+        if (err) {
+          console.log(err);
+        }
+        if (!data || data.length === 0) {
+          res.status(400).send({ message: "No plants was found" });
+        } else {
+          res.status(200).send(data);
+        }
       }
-    });
+    );
   }
 };
+
+// Testing Authorization
+
+// /api/test/all for public access
+// exports.allAccess = (req, res) => {
+//   res.status(200).send("Public Content.");
+// };
+
+// /api/test/user for loggedin users (any role)
+// exports.userBoard = (req, res) => {
+//   res.status(200).send("User Content.");
+
+//   // Retrieve all Plant with user_id from the database.
+//   const id = req.userId;
+//   var condition = { user_id: id };
+
+//   Plant.find(condition)
+//     .then((data) => {
+//       res.send(data);
+//     })
+//     .catch((err) => {
+//       res.status(500).send({
+//         message: err.message || "Some error occurred while retrieving plants.",
+//       });
+//     });
+// };
+
+// /api/test/admin for admin users
+// exports.adminBoard = (req, res) => {
+//   res.status(200).send("Admin Content.");
+// };
+
+// /api/test/mod for moderator users
+// exports.moderatorBoard = (req, res) => {
+//   res.status(200).send("Moderator Content.");
+// };

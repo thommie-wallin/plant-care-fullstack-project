@@ -32,7 +32,7 @@ module.exports = function (app) {
     next();
   });
   app.get("/api/all", controller.allAccess);
-  app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
+  // app.get("/api/user", [authJwt.verifyToken], controller.userBoard);
   // app.get(
   //   "/api/test/mod",
   //   [authJwt.verifyToken, authJwt.isModerator],
@@ -44,22 +44,22 @@ module.exports = function (app) {
     controller.adminBoard
   );
   app.get(
-    "/api/getusers",
+    "/api/getUsers",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.getUsers
   );
   app.get(
-    "/api/getoneuser",
+    "/api/getOneUser",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.getOneUser
   );
   app.put(
-    "/api/updateuser",
+    "/api/updateUser",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.updateUser
   );
   app.delete(
-    "/api/deleteuser",
+    "/api/deleteUser",
     [authJwt.verifyToken, authJwt.isAdmin],
     controller.deleteUser
   );
