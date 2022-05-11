@@ -45,7 +45,7 @@ const getUser = (userId) => {
     });
 };
 
-const updateUser = (userId, username, email, password, roles) => {
+const updateUser = (userId, username, email, roles) => {
   return axios
     .put(
       API_URL + "updateUser",
@@ -53,7 +53,6 @@ const updateUser = (userId, username, email, password, roles) => {
         id: userId,
         username: username,
         email: email,
-        password: password,
         roles: roles,
       },
       { headers: authHeader() }
@@ -77,14 +76,6 @@ const deleteUser = (userId) => {
       // handle error
       console.log(error);
     });
-
-  // fetch(`http://localhost:8080/api/users/` + usertId, {
-  //   method: "DELETE",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ usertId }),
-  // }).then((data) => data.json());
 };
 
 const UserService = {
@@ -93,10 +84,6 @@ const UserService = {
   getUser,
   updateUser,
   deleteUser,
-  // getPublicContent,
-  // getUserBoard,
-  // getModeratorBoard,
-  // getAdminBoard,
 };
 
 export default UserService;

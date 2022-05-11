@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { delPlant } from "../../services/plants";
 import SearchPlants from "./plantsearch";
 import AuthService from "../../services/auth.service";
 import PlantService from "../../services/plant.service";
@@ -19,7 +18,6 @@ export default function Plants() {
         setPlantCards(plants);
       }
     });
-    // console.log(plantCards[0]._id);
     return () => (mounted = false);
   }, [deletePlant]);
 
