@@ -1,14 +1,15 @@
 const express = require("express");
+const dbConfig = require("./app/config/db.config");
 require("dotenv").config();
 const cors = require("cors");
 const app = express();
 var corsOptions = {
   origin: "*",
   // origin: "http://localhost:8081",
-  // credentials: true,
-  // methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
-  // allowedHeaders: ["Content-Type"],
-  // exposedHeaders: ["Content-Type"],
+  credentials: true,
+  methods: ["GET", "POST", "HEAD", "PUT", "PATCH", "DELETE"],
+  allowedHeaders: ["Content-Type", "x-access-token"],
+  exposedHeaders: ["Content-Type"],
 };
 app.use(cors(corsOptions));
 
@@ -22,10 +23,14 @@ app.use(express.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 db.mongoose
-  .connect(db.url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    // db.url,
+    `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log("Connected to the database!");
     initial();
@@ -46,14 +51,6 @@ function initial() {
           console.log("error", err);
         }
         console.log("added 'user' to roles collection");
-      });
-      new Role({
-        name: "moderator",
-      }).save((err) => {
-        if (err) {
-          console.log("error", err);
-        }
-        console.log("added 'moderator' to roles collection");
       });
       new Role({
         name: "admin",

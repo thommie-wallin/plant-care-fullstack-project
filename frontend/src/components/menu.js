@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
-export default function Menu({ fixed }) {
+export default function Menu() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [showPlants, setShowPlants] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -13,7 +12,6 @@ export default function Menu({ fixed }) {
     const user = AuthService.getCurrentUser();
     if (user) {
       setCurrentUser(user);
-      setShowModeratorBoard(user.roles.includes("ROLE_MODERATOR"));
       setShowAdminBoard(user.roles.includes("ROLE_ADMIN"));
       setShowPlants(user.roles.includes("ROLE_USER"));
     }
@@ -91,16 +89,6 @@ export default function Menu({ fixed }) {
                       Home
                     </Link>
                   </li>
-                  {showModeratorBoard && (
-                    <li onClick={() => setMenuOpen(!menuOpen)}>
-                      <Link
-                        className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                        to=""
-                      >
-                        Moderator Board
-                      </Link>
-                    </li>
-                  )}
                   {showAdminBoard && (
                     <li onClick={() => setMenuOpen(!menuOpen)}>
                       <Link

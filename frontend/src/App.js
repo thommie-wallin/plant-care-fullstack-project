@@ -10,7 +10,7 @@ import UpdatePlant from "./components/plants/plantupdate";
 import Admin from "./components/admin/admin";
 import CreateUser from "./components/admin/usercreate";
 import UpdateUser from "./components/admin/userupdate";
-import Profile from "./components/Profile";
+import Profile from "./components/profile";
 
 function App() {
   return (

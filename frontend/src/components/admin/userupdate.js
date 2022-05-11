@@ -48,28 +48,12 @@ const vusername = (value) => {
   }
 };
 
-const vpassword = (value) => {
-  if (value.length < 6 || value.length > 65) {
-    return (
-      <div
-        className="bg-red-100 border border-red-200 text-red-700 px-4 py-3 rounded relative"
-        role="alert"
-      >
-        <span className="block sm:inline">
-          The password must be between 6 and 65 characters.
-        </span>
-      </div>
-    );
-  }
-};
-
 function UpdateUser() {
   const form = useRef();
   const checkBtn = useRef();
   const [userId, setUserId] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [admin, setAdmin] = useState(null);
   const [user, setUser] = useState(null);
   const [successful, setSuccessful] = useState(false);
@@ -84,7 +68,6 @@ function UpdateUser() {
         setUserId(user.id);
         setUsername(user.username);
         setEmail(user.email);
-        setPassword(user.password);
         user.roles.forEach((value) => {
           if (value === "user") {
             setUser(true);
@@ -99,7 +82,6 @@ function UpdateUser() {
 
   const onChangeUsername = (e) => setUsername(e.target.value);
   const onChangeEmail = (e) => setEmail(e.target.value);
-  const onChangePassword = (e) => setPassword(e.target.value);
   const handleChangeAdmin = () => setAdmin(admin ? false : true);
   const handleChangeUser = () => setUser(user ? false : true);
 
@@ -114,7 +96,7 @@ function UpdateUser() {
       user && roles.push("user");
       !user && !admin && roles.push("user");
 
-      UserService.updateUser(userId, username, email, password, roles)
+      UserService.updateUser(userId, username, email, roles)
         .then((response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -167,19 +149,6 @@ function UpdateUser() {
                       value={email}
                       onChange={onChangeEmail}
                       validations={[required, validEmail]}
-                    />
-                  </label>
-                </div>
-                <div className="m-2">
-                  <label htmlFor="password">
-                    <p>Password</p>
-                    <Input
-                      className="border rounded-md focus:outline-none"
-                      type="text"
-                      name="password"
-                      value={password}
-                      onChange={onChangePassword}
-                      validations={[required, vpassword]}
                     />
                   </label>
                 </div>

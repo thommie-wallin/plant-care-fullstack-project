@@ -2,37 +2,8 @@ const db = require("../models");
 const User = db.user;
 const Role = db.role;
 const Plant = db.plants;
-let bcrypt = require("bcryptjs");
 
-//* Create and Save a new User
-// exports.createUser = (req, res) => {
-//   // Validate request
-//   if (!req.body.username || !req.body.password) {
-//     res.status(400).send({ message: "Content can not be empty!" });
-//     return;
-//   }
-
-//   // Create a User
-//   const user = new User({
-//     username: req.body.username,
-//     email: req.body.email,
-//     password: bcrypt.hashSync(req.body.password, 8),
-//   });
-
-//   // Save User in the database
-//   user
-//     .save(user)
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message || "Some error occurred while creating the User.",
-//       });
-//     });
-// };
-
-//* Retrieve all Users from the database.
+// Retrieve all Users from the database.
 exports.getUsers = (req, res) => {
   User.find({})
     .populate("roles", "-__v")
@@ -60,7 +31,7 @@ exports.getUsers = (req, res) => {
     });
 };
 
-//* Find a single User with an id
+// Find a single User with an id
 exports.getOneUser = (req, res) => {
   const id = req.query.id;
 
@@ -84,7 +55,6 @@ exports.getOneUser = (req, res) => {
         password: user.password,
         email: user.email,
         roles: authorities,
-        // accessToken: token,
       });
     });
 };
@@ -102,7 +72,6 @@ exports.updateUser = (req, res) => {
   const updatedUser = {
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
   };
 
   Role.find(
@@ -164,36 +133,3 @@ exports.deleteUser = (req, res) => {
       });
     });
 };
-
-// Testing Authorization
-
-// /api/all for public access
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
-};
-
-// /api/test/user for loggedin users (any role)
-// exports.userBoard = (req, res) => {
-//   res.status(200).send("User Content.");
-// };
-
-// /api/admin for admin users
-exports.adminBoard = (req, res) => {
-  // res.status(200).send("Admin Content.");
-
-  // Retrieve all Users from the database.
-  User.find({})
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: err.message || "Some error occurred while retrieving users.",
-      });
-    });
-};
-
-// /api/mod for moderator users
-// exports.moderatorBoard = (req, res) => {
-//   res.status(200).send("Moderator Content.");
-// };

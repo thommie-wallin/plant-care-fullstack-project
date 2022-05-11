@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { createPlant } from "../../services/plants";
 import { useHistory } from "react-router-dom";
 import PlantService from "../../services/plant.service";
 

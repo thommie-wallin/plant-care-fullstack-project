@@ -83,7 +83,7 @@ function Admin() {
                 </thead>
 
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {users.map((user, index) => (
+                  {users?.map((user, index) => (
                     <tr key={index}>
                       <td className="break-all px-1 md:px-6 md:py-4">
                         <div className="truncate px-1 md:px-2 leading-5 text-sm text-gray-500">

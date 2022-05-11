@@ -160,39 +160,3 @@ exports.searchPlants = async (req, res) => {
     );
   }
 };
-
-// Testing Authorization
-
-// /api/test/all for public access
-// exports.allAccess = (req, res) => {
-//   res.status(200).send("Public Content.");
-// };
-
-// /api/test/user for loggedin users (any role)
-// exports.userBoard = (req, res) => {
-//   res.status(200).send("User Content.");
-
-//   // Retrieve all Plant with user_id from the database.
-//   const id = req.userId;
-//   var condition = { user_id: id };
-
-//   Plant.find(condition)
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       res.status(500).send({
-//         message: err.message || "Some error occurred while retrieving plants.",
-//       });
-//     });
-// };
-
-// /api/test/admin for admin users
-// exports.adminBoard = (req, res) => {
-//   res.status(200).send("Admin Content.");
-// };
-
-// /api/test/mod for moderator users
-// exports.moderatorBoard = (req, res) => {
-//   res.status(200).send("Moderator Content.");
-// };
