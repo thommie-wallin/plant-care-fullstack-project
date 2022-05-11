@@ -1,6 +1,6 @@
 module.exports = {
-  // url: "mongodb://localhost:27017/u11_fullstack_db",
-  HOST: "localhost",
-  PORT: 27017,
-  DB: "u11_fullstack_db",
+  username: process.env.AUTHNAME,
+  password: process.env.PASSWORD,
+  host: process.env.HOST,
+  db: process.env.DB,
 };
