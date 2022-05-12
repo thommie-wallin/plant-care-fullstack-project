@@ -1,6 +1,6 @@
+require("dotenv").config();
 const express = require("express");
 const dbConfig = require("./app/config/db.config");
-require("dotenv").config();
 const cors = require("cors");
 const app = express();
 var corsOptions = {
@@ -24,8 +24,7 @@ const db = require("./app/models");
 const Role = db.role;
 db.mongoose
   .connect(
-    // db.url,
-    `mongodb://${dbConfig.HOST}:${dbConfig.PORT}/${dbConfig.DB}`,
+    `mongodb+srv://${dbConfig.username}:${dbConfig.password}@${dbConfig.host}/${dbConfig.db}?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -37,6 +36,7 @@ db.mongoose
   })
   .catch((err) => {
     console.log("Cannot connect to the database!", err);
+    console.log(dbConfig.username);
     process.exit();
   });
 
