@@ -47,6 +47,7 @@ function Login() {
       AuthService.login(username, password).then(
         () => {
           history.push("/profile");
+          window.location.reload();
         },
         (error) => {
           const resMessage =
