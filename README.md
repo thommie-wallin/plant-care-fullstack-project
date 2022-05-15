@@ -2,6 +2,6 @@
 
 Grundläggande design: https://docs.google.com/document/d/1rpSG_YET8YQZ89ZwgVXAXQigkN4thmGgblvIbir15bM/edit
 
-Inte färdig:
+Dokumentation för API: se "backend\u11_fullstack_db.postman_collection.json"
 
-- Deploying
+Deployed: u11-fullstack-js.netlify.app

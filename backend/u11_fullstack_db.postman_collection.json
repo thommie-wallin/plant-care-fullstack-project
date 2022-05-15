@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "8eccc611-4406-44ba-88c0-a211892a5cdd",
+		"name": "u11_fullstack_db",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"signup\",\r\n    \"email\": \"signup@bezkoder.com\",\r\n    \"password\": \"12345678\",\r\n    \"roles\": [\"user\", \"admin\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/auth/signup",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read all users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2JlNDIzMzg5YTkyOTJkNDQ4YTc2MiIsImlhdCI6MTY1MjUzNzc5MCwiZXhwIjoxNjUyNjI0MTkwfQ.HpwzJlRMabAplw2SfQvrL6-mVcSsD837FbT1eMSby2E",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/getusers/",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"getusers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read single user",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWFmMzA2YWUwYjM5OWJjNDNlMmU4MiIsImlhdCI6MTY1MTAwMjY3MiwiZXhwIjoxNjUxMDg5MDcyfQ.MkEsI9-2T2F9f69aSjK7hCVbzHDl_XiMnolSbtSUqTQ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/getOneUser?id=625ef07db2cd25342c9b6c41",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"getOneUser"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "625ef07db2cd25342c9b6c41"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWFmMzA2YWUwYjM5OWJjNDNlMmU4MiIsImlhdCI6MTY1MjAxOTExMSwiZXhwIjoxNjUyMTA1NTExfQ.fVAQyx8ZST2QEMjE7APO9wEzCO7fwCX_r-MOOoW7Nyw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"625ef07db2cd25342c9b6c41\",\r\n    \"username\": \"bezkoderAdmin\",\r\n    \"email\": \"bezkoderAdmin@bezkoder.com\",\r\n    \"roles\": [\"user\",\"admin\"]\r\n}"
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/updateuser",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"updateuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete single user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWFmMzA2YWUwYjM5OWJjNDNlMmU4MiIsImlhdCI6MTY1MTY3Njc0NiwiZXhwIjoxNjUxNzYzMTQ2fQ.W3KPc1NGqHo7PFZ0eV8bu_e0qz6thh8zcGOFO7uz3xo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/deleteUser?id=62729aa8245de1b069fbc698",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"deleteUser"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "62729aa8245de1b069fbc698"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "plants",
+			"item": [
+				{
+					"name": "create plant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmMDU4YjJjZDI1MzQyYzliNmMzOSIsImlhdCI6MTY1MDgxNTYyOSwiZXhwIjoxNjUwOTAyMDI5fQ.HlmJrEDBmyEVnWvlsk3S92bIcc0hkUB3u5W1QrRdBZw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"lingon\",\r\n    \"instruction\": \"The href attribute requires a valid value to be accessible.\"\r\n}"
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/createPlant",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"createPlant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read all plants for single user_id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmMDU4YjJjZDI1MzQyYzliNmMzOSIsImlhdCI6MTY1MDgxNTYyOSwiZXhwIjoxNjUwOTAyMDI5fQ.HlmJrEDBmyEVnWvlsk3S92bIcc0hkUB3u5W1QrRdBZw",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/getUserPlants",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"getUserPlants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "read single plant",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmMDU4YjJjZDI1MzQyYzliNmMzOSIsImlhdCI6MTY1MDgxNTYyOSwiZXhwIjoxNjUwOTAyMDI5fQ.HlmJrEDBmyEVnWvlsk3S92bIcc0hkUB3u5W1QrRdBZw",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/getOnePlant?id=616330a2a193d5989f2e0079",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"getOnePlant"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "616330a2a193d5989f2e0079"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update plant",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmMDdkYjJjZDI1MzQyYzliNmM0MSIsImlhdCI6MTY1MDQwMDMzMCwiZXhwIjoxNjUwNDg2NzMwfQ.WZU-4x4sCATB5nny2OwHoA29JIQ7gkbpvgfXEMaYSVs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"625f240a9d0b2ee7e4479845\",\r\n    \"name\": \"gul ros\",\r\n    \"instruction\": \"plantera i jorden\"\r\n}"
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/updatePlant",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"updatePlant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete single plant",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmMDdkYjJjZDI1MzQyYzliNmM0MSIsImlhdCI6MTY1MDQwMDMzMCwiZXhwIjoxNjUwNDg2NzMwfQ.WZU-4x4sCATB5nny2OwHoA29JIQ7gkbpvgfXEMaYSVs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"625f240a9d0b2ee7e4479845\"\r\n}"
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/deletePlant",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"deletePlant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search plants",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyNWVmMDdkYjJjZDI1MzQyYzliNmM0MSIsImlhdCI6MTY1MDQ0MDkyMywiZXhwIjoxNjUwNTI3MzIzfQ.fDhnVBSTbmF00SYQlXv-oscXxMKYoF22GjFqqWK_NjY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"query\": \"Ch\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/searchPlants",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"searchPlants"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"12345678\"\r\n}"
+						},
+						"url": {
+							"raw": "https://u11-fullstack-backend.herokuapp.com/api/auth/signin",
+							"protocol": "https",
+							"host": [
+								"u11-fullstack-backend",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
