@@ -34,6 +34,31 @@ Plant Care is an application designed to help users keep track of plants in thei
    ```bash
    cd frontend
    npm install
+   ```
+
+   **Backend:**
+   ```bash
+   cd backend
+   npm install
+   ```
+
+### Executing Program
+
+1. Start the frontend server:
+   ```bash
+   cd frontend
+   npm start
+   ```
+
+ 2. Start the backend server:
+   ```bash
+   cd backend
+   npm start
+  ```
+
+### Launch
+To access the Plant Care application, visit: [Plant Care](https://www.u11-fullstack-js.netlify.app)
+
 
 
 <!-- 
