@@ -1,4 +1,4 @@
-# Plant Care ![Static Badge](https://img.shields.io/badge/React-v17.0.2-blue?logo=react) ![Static Badge](https://img.shields.io/badge/Node.js-v18+-blue) [![Netlify Status](https://api.netlify.com/api/v1/badges/8f91b391-bced-4752-b191-4c868beb01bf/deploy-status)](https://app.netlify.com/sites/u11-fullstack-js/deploys)
+# Plant Care ![Static Badge](https://img.shields.io/badge/React-v17.0.2-blue?logo=react) ![Static Badge](https://img.shields.io/badge/Node.js-v18+-blue)
 
 A platform for plant lovers to organize and maintain a collection of plants, complete with personalized care instructions. Users can create an account, log in, and manage a list of plants with notes on how to best care for each one.
 
@@ -50,11 +50,11 @@ Plant Care is an application designed to help users keep track of plants in thei
    npm start
    ```
 
- 2. Start the backend server:
+2. Start the backend server:
    ```bash
    cd backend
    npm start
-  ```
+   ```
 
 ### Launch
 To access the Plant Care application, visit: [Plant Care](https://www.u11-fullstack-js.netlify.app)
