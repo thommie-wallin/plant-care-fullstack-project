@@ -1,10 +1,11 @@
-# Plant Care ![Static Badge](https://img.shields.io/badge/React-v17.0.2-blue?logo=react) ![Static Badge](https://img.shields.io/badge/Node.js-v18+-blue)
+# Plant Care ![Static Badge](https://img.shields.io/badge/React-v17.0.2-blue?logo=react) ![Static Badge](https://img.shields.io/badge/v4.17.1-express?logo=express&logoColor=%23000000&label=Express&color=blue)
+
 
 A platform for plant lovers to organize and maintain a collection of plants, complete with personalized care instructions. Users can create an account, log in, and manage a list of plants with notes on how to best care for each one.
 
 ## Description
 
-![Static Badge](https://img.shields.io/badge/^5.3.0-blue?logo=react-router&label=React%20Router%20DOM)
+![Static Badge](https://img.shields.io/badge/v5.3.0-blue?logo=react-router&label=React%20Router%20DOM)
 ![Static Badge](https://img.shields.io/badge/JWT-Authentication-red?logo=json)
 ![Static Badge](https://img.shields.io/badge/MongoDB-Database-green?logo=mongodb)
 
